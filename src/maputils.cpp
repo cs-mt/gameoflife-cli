@@ -8,6 +8,10 @@
 
 #include "maputils.h"
 #include <ncurses.h>
+#include <fstream>
+#include <chrono>
+#include <string>
+#include <iterator>
 
 void MapUtils::TogglePoint(std::vector<std::pair<int, int>> &gameMap, int selectionX, int selectionY){
     auto exists = -1;
@@ -42,11 +46,6 @@ void MapUtils::EnterDrawMode(Game &game){
 
         wmove(stdscr, selectionY, selectionX);
 
-        // WASD to move
-        // E to exit draw mode
-        // M to save to file
-        // Space to draw/erase
-
         char ch = getch();
 
         if(ch == 119){ // w
@@ -58,11 +57,31 @@ void MapUtils::EnterDrawMode(Game &game){
         }else if(ch == 100){ // d
             ++selectionX;
         }else if(ch == 101){ // e
+            game.setCurrentMap(gameMap);
             break;
-        }else if(ch == 109){ // s
-
+        }else if(ch == 103){ // g
+            SaveMap(gameMap);
+            break;
         }else if(ch == 32){ // space
             TogglePoint(gameMap, selectionX, selectionY);
         }
+    }
+}
+
+void MapUtils::SaveMap(std::vector<std::pair<int, int>> &gameMap){
+    const auto timeNow = std::chrono::system_clock::now();
+    int timeNowUnix = std::chrono::duration_cast<std::chrono::seconds>(timeNow.time_since_epoch()).count();
+
+    std::ofstream file("Maps/" + std::to_string(timeNowUnix) + ".map");
+
+    if(file.is_open()){
+        for(auto it : gameMap){
+
+            int x = it.first;
+            int y = it.second;
+
+            file << x << "," << y << "-";
+        }
+        file.close();
     }
 }

@@ -38,9 +38,9 @@ int main(){
     MapUtils maputils;
     maputils.EnterDrawMode(game);
 
-/*    while(true){
+    while(true){
         std::this_thread::sleep_for(250ms);
         game.nextGeneration();
-    }*/
+    }
 
 }

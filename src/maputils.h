@@ -15,9 +15,7 @@ class MapUtils {
     public:
         void EnterDrawMode(Game &game);
         void TogglePoint(std::vector<std::pair<int, int>> &gameMap, int selectionX, int selectionY);
-    private:
-
-        void SaveDrawing();
+        void SaveMap(std::vector<std::pair<int, int>> &gameMap);
 };
 
 
