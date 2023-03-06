@@ -60,6 +60,7 @@ void MapUtils::EnterDrawMode(Game &game){
             game.setCurrentMap(gameMap);
             break;
         }else if(ch == 103){ // g
+            game.setCurrentMap(gameMap);
             SaveMap(gameMap);
             break;
         }else if(ch == 32){ // space
