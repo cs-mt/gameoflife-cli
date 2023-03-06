@@ -3,7 +3,7 @@ C++ implementation of Conway's Game of Life using ncurses library.
 
 ## TODO
 
-:ballot_box_with_check: - Create the base game
+:ballot_box_with_check: - Create the base game | 2023-03-06
 
 :black_square_button: - Add common patterns
 
