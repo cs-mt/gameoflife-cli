@@ -18,10 +18,6 @@
 
 using namespace std::chrono_literals;
 
-int randomNumber(int start, int end){
-    return rand() % end + start;
-}
-
 std::atomic_bool draw;
 
 void keyLoop(){
