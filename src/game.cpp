@@ -1,5 +1,4 @@
 /*
- * Mon 06 Mar 2023 03:06:25 PM UTC
  *
  * C++ implementation of Conway's Game of Life
  *
@@ -7,7 +6,7 @@
  *
  */
 
-#include <iostream>
+#include "game.h"
 #include <ncurses.h>
 #include <vector>
 #include <map>
@@ -15,27 +14,19 @@
 #include <thread>
 #include <algorithm>
 
-using namespace std::chrono_literals;
-
-void DrawMap(std::vector<std::pair<int, int>> &gameMap){
-    clear();
-    for(auto it : gameMap){
-        int cellX = it.first;
-        int cellY = it.second;
-
-        mvprintw(cellY, cellX, "+");
-    }
-    refresh();
+Game::Game(){
+    initscr();
+    getmaxyx(stdscr, height, width);
 }
 
-bool isAlive(std::vector<std::pair<int, int>> &gameMap, std::pair<int, int> coords){
+bool Game::isAlive(std::vector<std::pair<int, int>> &gameMap, std::pair<int, int> coords){
     for(auto it : gameMap){
         if (it == coords) return true;
     }
     return false;
 }
 
-void calculateNextGen(std::vector<std::pair<int, int>> &gameMap, int width, int height){
+void Game::nextGeneration(){
     std::map<std::pair<int,int>, int> neighbors;
 
     for(auto it : gameMap){
@@ -84,47 +75,30 @@ void calculateNextGen(std::vector<std::pair<int, int>> &gameMap, int width, int 
     }
 
     gameMap = newMap;
+
+    DrawMap(gameMap);
 }
 
-int randomNumber(int start, int end){
-    return rand() % end + start;
+
+void Game::DrawMap(std::vector<std::pair<int, int>> &gameMap){
+    clear();
+    for(auto it : gameMap){
+        int cellX = it.first;
+        int cellY = it.second;
+
+        mvprintw(cellY, cellX, "+");
+    }
+    refresh();
 }
 
-int main(){
-    int height, width;
-    initscr();
-    getmaxyx(stdscr, height, width);
+std::pair<int,int> Game::getGameSize(){
+    return {width, height};
+}
 
-    srand(15);
+void Game::setCurrentMap(std::vector<std::pair<int, int>> newMap){
+    gameMap = newMap;
+}
 
-    std::vector<std::pair<int,int>> gameMap;
-
-    for(int i=0;i<1000;i++){
-        int randX = randomNumber(0, width);
-        int randY = randomNumber(0, height);
-
-        gameMap.push_back({randX, randY});
-    }
-
-    /*
-    // Block
-    gameMap.push_back({10,10});
-    gameMap.push_back({10,11});
-    gameMap.push_back({11,10});
-    gameMap.push_back({11,11});
-
-    // Blinker
-    gameMap.push_back({10,15});
-    gameMap.push_back({11,15});
-    gameMap.push_back({12,15});
-
-    // Glider
-    gameMap.insert(gameMap.end(), {{8, 21}, {9, 22} ,{10, 20}, {10, 21}, {10, 22}});
-    */
-
-    while(true){
-        std::this_thread::sleep_for(250ms);
-        DrawMap(gameMap);
-        calculateNextGen(gameMap, width, height);
-    }
+std::vector<std::pair<int, int>> Game::getCurrentMap(){
+    return gameMap;
 }
