@@ -20,7 +20,7 @@ C++ implementation of Conway's Game of Life using ncurses library.
 ## COMPILING
 
 ```
-git clone https://github.com/cs-mt/gameoflife-cli
+git clone https://github.com/cs-mt/gameoflife-cli.git
 cd gameoflife-cli/src
 clang++ -lncurses -pthread *.cpp -o gameoflife-cli
 ./gameoflife-cli
