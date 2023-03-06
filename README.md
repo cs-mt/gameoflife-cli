@@ -11,7 +11,7 @@ C++ implementation of Conway's Game of Life using ncurses library.
 
 :ballot_box_with_check: - Load Map from file | 2023-03-06
 
-:black_square_button: Randomize Map
+:black_square_button: - Randomize Map with Keypress
 
 :black_square_button: - Add common patterns
 
