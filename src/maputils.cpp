@@ -33,6 +33,8 @@ void MapUtils::TogglePoint(std::vector<std::pair<int, int>> &gameMap, int select
 void MapUtils::RandomizeMap(std::vector<std::pair<int, int>> &gameMap, int width, int height){
     gameMap = {};
 
+    srand(clock());
+
     for(int i=0;i<width*height/6;i++){
         int randX = rand() % width + 0;
         int randY = rand() % height + 0;
