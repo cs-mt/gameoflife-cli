@@ -34,7 +34,7 @@ clang++ -lncurses -pthread *.cpp -o gameoflife-cli
 
 ## HOW TO SAVE/LOAD MAP 
 
-* Enter draw mode with E 
+* Enter draw mode with D
 * Press G for saving
 * Press L for loading 
 * Enter file name.
