@@ -1,5 +1,5 @@
 # gameoflife-cli
-C++ implementation of Conway's Game of Life
+C++ implementation of Conway's Game of Life using ncurses library.
 
 ## TODO
 
