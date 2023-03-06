@@ -7,11 +7,13 @@
  */
 
 #include "maputils.h"
+#include <curses.h>
 #include <ncurses.h>
 #include <fstream>
 #include <chrono>
 #include <string>
 #include <iterator>
+#include <iostream>
 
 void MapUtils::TogglePoint(std::vector<std::pair<int, int>> &gameMap, int selectionX, int selectionY){
     auto exists = -1;
@@ -61,19 +63,42 @@ void MapUtils::EnterDrawMode(Game &game){
             break;
         }else if(ch == 103){ // g
             game.setCurrentMap(gameMap);
-            SaveMap(gameMap);
+            std::string mapName;
+
+            mvprintw(0, 0, "Enter a name for map: ");
+
+            int ch2 = getch();
+
+            while( ch2 != '\n' ){
+                mapName.push_back(ch2);
+                ch2 = getch();
+            }
+
+            SaveMap(gameMap, mapName);
             break;
         }else if(ch == 32){ // space
             TogglePoint(gameMap, selectionX, selectionY);
+        }else if(ch == 108) {// l
+            std::string mapName;
+
+            mvprintw(0, 0, "Name of the map to load: ");
+
+            int ch2 = getch();
+
+            while( ch2 != '\n' ){
+                mapName.push_back(ch2);
+                ch2 = getch();
+            }
+
+            auto loadedMap = LoadMap(mapName);
+            game.setCurrentMap(loadedMap);
+            break;
         }
     }
 }
 
-void MapUtils::SaveMap(std::vector<std::pair<int, int>> &gameMap){
-    const auto timeNow = std::chrono::system_clock::now();
-    int timeNowUnix = std::chrono::duration_cast<std::chrono::seconds>(timeNow.time_since_epoch()).count();
-
-    std::ofstream file("Maps/" + std::to_string(timeNowUnix) + ".map");
+void MapUtils::SaveMap(std::vector<std::pair<int, int>> &gameMap, std::string mapName){
+    std::ofstream file("Maps/" + mapName + ".map", std::ios::trunc);
 
     if(file.is_open()){
         for(auto it : gameMap){
@@ -85,4 +110,33 @@ void MapUtils::SaveMap(std::vector<std::pair<int, int>> &gameMap){
         }
         file.close();
     }
+}
+
+std::vector<std::pair<int, int>> MapUtils::LoadMap(std::string mapName){
+    std::ifstream file("Maps/" + mapName + ".map");
+    std::string mapStr;
+    getline(file, mapStr);
+
+    std::vector<std::pair<int, int>> loadedMap;
+
+    std::string part;
+    int x=-1,y=-1;
+
+    for( auto it : mapStr ){
+        if(it == ','){
+            x = stoi(part);
+            part = "";
+            continue;
+        }else if(it == '-'){
+            y = stoi(part);
+            part = "";
+            loadedMap.push_back({x,y});
+            x=-1;
+            y=-1;
+            continue;
+        }
+        part += it;
+    }
+
+    return loadedMap;
 }

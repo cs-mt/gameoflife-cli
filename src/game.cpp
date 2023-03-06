@@ -86,7 +86,7 @@ void Game::DrawMap(std::vector<std::pair<int, int>> &gameMap){
         int cellX = it.first;
         int cellY = it.second;
 
-        mvprintw(cellY, cellX, "+");
+        mvprintw(cellY, cellX, "#");
     }
     refresh();
 }

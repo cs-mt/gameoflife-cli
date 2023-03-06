@@ -5,12 +5,15 @@
  * Author: https://github.com/cs-mt/
  *
  */
+
 #include "game.h"
 #include <iostream>
 #include <chrono>
 #include <thread>
 #include <vector>
 #include "maputils.h"
+#include <ncurses.h>
+#include <atomic>
 
 using namespace std::chrono_literals;
 
@@ -18,14 +21,30 @@ int randomNumber(int start, int end){
     return rand() % end + start;
 }
 
-int main(){
+std::atomic_bool draw;
+
+void keyLoop(){
+    while(true){
+        if(!draw){
+            int ch = getch();
+
+            if(ch == 100) { // d 
+                draw = true;
+            }
+        }
+        std::this_thread::sleep_for(250ms);
+    }
+}
+
+void gameLoop(){
     std::vector<std::pair<int, int>> startMap;
 
     startMap.push_back({10,15});
     startMap.push_back({11,15});
     startMap.push_back({12,15});
 
-    Game game = Game();
+    Game game;
+    MapUtils maputils;
 
     int width,height;
 
@@ -35,12 +54,23 @@ int main(){
 
     game.setCurrentMap(startMap);
 
-    MapUtils maputils;
-    maputils.EnterDrawMode(game);
-
     while(true){
-        std::this_thread::sleep_for(250ms);
-        game.nextGeneration();
+        if(draw){
+            maputils.EnterDrawMode(game);
+            draw = false;
+        }else {
+            std::this_thread::sleep_for(10ms);
+            game.nextGeneration();
+        }
     }
+}
 
+int main(){
+    draw = false;
+
+    std::thread t1(gameLoop);
+    std::thread t2(keyLoop);
+
+    t2.join();
+    t1.join();
 }
