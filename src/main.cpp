@@ -1,4 +1,5 @@
 /*
+ * Mon 06 Mar 2023 10:35:51 PM UTC
  *
  * C++ implementation of Conway's Game of Life
  *
@@ -46,12 +47,6 @@ void gameLoop(){
     Game game;
     MapUtils maputils;
 
-    int width,height;
-
-    auto gameSize = game.getGameSize();
-    width = gameSize.first;
-    height = gameSize.second;
-
     game.setCurrentMap(startMap);
 
     while(true){
@@ -59,7 +54,7 @@ void gameLoop(){
             maputils.EnterDrawMode(game);
             draw = false;
         }else {
-            std::this_thread::sleep_for(10ms);
+            std::this_thread::sleep_for(20ms);
             game.nextGeneration();
         }
     }

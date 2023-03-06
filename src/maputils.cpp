@@ -1,4 +1,5 @@
 /*
+ * Mon 06 Mar 2023 10:35:51 PM UTC
  *
  * C++ implementation of Conway's Game of Life
  *
@@ -26,6 +27,17 @@ void MapUtils::TogglePoint(std::vector<std::pair<int, int>> &gameMap, int select
         gameMap.push_back({selectionX, selectionY});                
     }else {
         gameMap.erase(gameMap.begin() + exists);
+    }
+}
+
+void MapUtils::RandomizeMap(std::vector<std::pair<int, int>> &gameMap, int width, int height){
+    gameMap = {};
+
+    for(int i=0;i<width*height/6;i++){
+        int randX = rand() % width + 0;
+        int randY = rand() % height + 0;
+
+        gameMap.push_back({randX, randY});
     }
 }
 
@@ -93,6 +105,8 @@ void MapUtils::EnterDrawMode(Game &game){
             auto loadedMap = LoadMap(mapName);
             game.setCurrentMap(loadedMap);
             break;
+        }else if(ch == 114) { // r
+            RandomizeMap(gameMap, width, height);
         }
     }
 }

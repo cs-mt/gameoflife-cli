@@ -11,11 +11,7 @@ C++ implementation of Conway's Game of Life using ncurses library.
 
 :ballot_box_with_check: - Load Map from file | 2023-03-06
 
-:black_square_button: - Randomize Map with Keypress
-
-:black_square_button: - Add common patterns
-
-:black_square_button: - Show statistics
+:ballot_box_with_check: - Randomize Map with Keypress | 2023-03-07
 
 ## COMPILING
 
@@ -31,6 +27,7 @@ clang++ -lncurses -pthread *.cpp -o gameoflife-cli
 * D enters draw mode
 * WASD moves the cursor
 * SPACE toggles the cell state (dead, alive)
+* R randomizes the map
 * E exits draw mode
 
 ## HOW TO SAVE/LOAD MAP 
@@ -39,5 +36,5 @@ clang++ -lncurses -pthread *.cpp -o gameoflife-cli
 * Press G for saving
 * Press L for loading 
 * Enter file name.
-* Maps are stored under Maps/ folder.
+* Maps are stored under Maps folder.
 

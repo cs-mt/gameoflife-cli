@@ -1,4 +1,5 @@
-/*
+/* 
+ * Mon 06 Mar 2023 10:35:51 PM UTC
  *
  * C++ implementation of Conway's Game of Life
  *
@@ -18,6 +19,7 @@ class MapUtils {
         void TogglePoint(std::vector<std::pair<int, int>> &gameMap, int selectionX, int selectionY);
         void SaveMap(std::vector<std::pair<int, int>> &gameMap, std::string mapName);
         std::vector<std::pair<int, int>> LoadMap(std::string mapName);
+        void RandomizeMap(std::vector<std::pair<int, int>> &gameMap, int width, int height);
 };
 
 
