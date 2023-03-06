@@ -72,7 +72,7 @@ void calculateNextGen(std::vector<std::pair<int, int>> &gameMap, int width, int 
         int neighborCount = neighbor.second;
 
         // If alive, needs to have 2 or 3 live neighbors to keep living.
-        // If dead, needs to have exactly 3 neighbors to keep living.
+        // If dead, needs to have exactly 3 neighbors to get revived.
 
         if(isAlive(gameMap, {neighborX, neighborY})){
             if(neighborCount == 2 || neighborCount == 3){
@@ -123,7 +123,7 @@ int main(){
     */
 
     while(true){
-        std::this_thread::sleep_for(10ms);
+        std::this_thread::sleep_for(250ms);
         DrawMap(gameMap);
         calculateNextGen(gameMap, width, height);
     }
