@@ -30,6 +30,7 @@ clang++ -lncurses -pthread *.cpp -o gameoflife-cli
 
 * D enters draw mode
 * WASD moves the cursor
+* SPACE toggles the cell state (dead, alive)
 * E exits draw mode
 
 ## HOW TO SAVE/LOAD MAP 
