@@ -8,14 +8,18 @@
  */
 
 #include "game.h"
+#include <curses.h>
 #include <ncurses.h>
 #include <vector>
 #include <map>
 #include <chrono>
 #include <thread>
 #include <algorithm>
+#include <string>
+#include <locale.h>
 
 Game::Game(){
+    setlocale(LC_ALL, "");
     initscr();
     getmaxyx(stdscr, height, width);
 }
@@ -87,7 +91,7 @@ void Game::DrawMap(std::vector<std::pair<int, int>> &gameMap){
         int cellX = it.first;
         int cellY = it.second;
 
-        mvprintw(cellY, cellX, "#");
+        mvprintw(cellY, cellX, "■");
     }
     refresh();
 }

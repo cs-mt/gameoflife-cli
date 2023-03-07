@@ -50,7 +50,7 @@ void gameLoop(){
             maputils.EnterDrawMode(game);
             draw = false;
         }else {
-            std::this_thread::sleep_for(20ms);
+            std::this_thread::sleep_for(50ms);
             game.nextGeneration();
         }
     }
