@@ -1,6 +1,8 @@
 # gameoflife-cli
 C++ implementation of Conway's Game of Life using ncurses library.
 
+![Example](https://github.com/cs-mt/gameoflife-cli/blob/main/gameoflife.gif?raw=true)
+
 ## TODO
 
 :ballot_box_with_check: - Create the base game | 2023-03-06
