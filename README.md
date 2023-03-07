@@ -1,7 +1,7 @@
 # gameoflife-cli
 C++ implementation of Conway's Game of Life using ncurses library.
 
-![Example](https://github.com/cs-mt/gameoflife-cli/blob/main/gameoflife.gif?raw=true)
+<img alt="Conway's Game of Life" src="https://github.com/cs-mt/gameoflife-cli/blob/main/gameoflife.gif?raw=true" width="360">
 
 ## TODO
 
